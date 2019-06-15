@@ -1,4 +1,6 @@
-idea/
+.idea/
 venv/
 *.pyc
+*.png
+*.nrrd
 __pycache__/
