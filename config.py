@@ -2,9 +2,9 @@ import os
 import copy
 
 
-eps = 0.1  # -e regularization eps (double); default: "0.001"
+eps = 0.001  # -e regularization eps (double); default: "0.001"
 itr = 30  # maximum  iterations (unsigned int); default: "10"
-gradeps = 0.1  # gradient eps (double); default: "0.001"
+gradeps = 0.001  # gradient eps (double); default: "0.001"
 scl = "scale"  # scale output file (string); default: ""
 sclMinItr = 0  # iteration to start measurement (unsigned int);default: "0"
 tau = 1.0  # step size tau (double); default: "1.0"
