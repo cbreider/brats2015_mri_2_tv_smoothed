@@ -1,3 +1,11 @@
+"""
+Lab Visualisation & Medical Image Analysis SS2019
+Institute of Computer Science II
+
+Author: Christian Breiderhoff
+created on June 2019
+"""
+
 import nrrd
 import SimpleITK as sitk
 import os
@@ -5,7 +13,7 @@ import subprocess
 import numpy as np
 import png
 import config as conf
-
+import copy
 
 def load_3d_volume_as_array(filename):
     if ('.mha' in filename):
