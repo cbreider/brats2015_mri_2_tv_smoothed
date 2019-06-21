@@ -9,6 +9,7 @@ lock = allocate_lock()
 thread_finished = None
 show_step_size = 20
 show_step_size_tvflow = 500
+num_threads = int(multiprocessing.cpu_count())
 
 def chunk_dict(dict_in, num_seq):
     avg = len(dict_in) / float(num_seq)
@@ -76,7 +77,6 @@ if __name__ == "__main__":
                         action='store_true')
     args = parser.parse_args()
     config.initialize()
-    num_threads = int(multiprocessing.cpu_count())
 
     # convert mhs to nrrd
     if args.create_raw_files_first:

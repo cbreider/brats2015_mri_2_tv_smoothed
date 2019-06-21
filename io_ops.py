@@ -25,8 +25,8 @@ def save_3darray_to_pngs(data, filename):
 		max_val = np.amax(data)
 		if float(max_val) != 0.0:
 			data = data / max_val
-			data = data * np.iinfo(np.int16).max
-		data = data.astype(np.int16)
+			data = data * np.iinfo(np.uint8).max
+		data = data.astype(np.uint8)
 		for i in all:
 			file_path = "{}_{}.png".format(filename, i)
 			if os.path.exists(file_path):
@@ -57,7 +57,7 @@ def run_tvflow(command):
 	popen = subprocess.call(command, stdout=subprocess.PIPE, shell=True)
 
 
-def load_2d_nrrd_and_save_to_png(in_file, out_file, p=False):
+def load_2d_nrrd_and_save_to_png(in_file, out_file):
 	try:
 		if os.path.exists(out_file):
 			print("ret")
@@ -66,13 +66,11 @@ def load_2d_nrrd_and_save_to_png(in_file, out_file, p=False):
 		max_val = np.amax(data)
 		if float(max_val) != 0.0:
 			data = data / max_val
-			data = data * np.iinfo(np.int16).max
-		data = data.astype(np.int16)
-		if p and not "scale" in in_file:
-			print(data.tolist())
+			data = data * np.iinfo(np.uint8).max
+		data = data.astype(np.uint8)
 		with open(out_file, 'wb') as f:
 			w = png.Writer(240, 240, greyscale=True, bitdepth=8)
-			w.write(f, data)
+			w.write(f, data.copy())
 			f.close()
 	except Exception as e:
 		print("type error: " + str(e))
