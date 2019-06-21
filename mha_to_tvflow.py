@@ -7,8 +7,8 @@ import multiprocessing
 
 lock = allocate_lock()
 thread_finished = None
-show_step_size = 2
-
+show_step_size = 20
+show_step_size_tvflow = 500
 
 def chunk_dict(dict_in, num_seq):
     avg = len(dict_in) / float(num_seq)
@@ -35,7 +35,7 @@ def run_tv_flow_on_dict(tvflow_file_dict_part, thread_num):
     for key, value in tvflow_file_dict_part.items():
         command = config.get_tvflow_arg_string(key, value)
         io_ops.run_tvflow(command)
-        if tmp % show_step_size == 0:
+        if tmp % show_step_size_tvflow == 0:
             print("Processed tvflow in tread {} on scan {} of {}".format(thread_num, tmp, length))
         tmp += 1
     threads_running[thread_num - 1] = False
@@ -47,8 +47,8 @@ def run_nrrd_to_png_conversion(file_dict, thread_num):
     tmp = 1
     for key, value in file_dict.items():
         io_ops.load_2d_nrrd_and_save_to_png(key, value)
-        if tmp % show_step_size == 0:
-            print("Processed tvflow in tread {} on scan {} of {}".format(thread_num, tmp, length))
+        if tmp % show_step_size_tvflow == 0:
+            print("Processed nrrd to png in tread {} on scan {} of {}".format(thread_num, tmp, length))
         tmp += 1
     threads_running[thread_num - 1] = False
 
