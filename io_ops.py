@@ -31,19 +31,32 @@ def save_3darray_to_pngs(data, filename):
 	try:
 		all = range(np.shape(data)[0])
 		max_val = np.amax(data)
-		if float(max_val) != 0.0:
-			data = data / max_val
-			data = data * np.iinfo(np.uint8).max
-		data = data.astype(np.uint8)
+		if not conf.ground_truth_path_identifier.lower() in filename.lower():
+			if float(max_val) != 0.0:
+				data = data / max_val
+				data = data * np.iinfo(np.uint8).max
+			else:
+				print("ERROR: values of {} are all 0!".format(filename))
+				return
+			data = data.astype(np.uint8)
+		#else:
+			 #_val = np.unique(data)
+			#print(_val)
 		for i in all:
 			file_path = "{}_{}.png".format(filename, i)
-			if os.path.exists(file_path):
-				return
+			sclice = data[i]
+			if float(np.amax(sclice)) == 0.0:
+				#print("skipped sclice {} of {}".format(i, filename))
+				continue
 			with open(file_path, 'wb') as f:
 				w = png.Writer(240, 240, greyscale=True, bitdepth=8)
 				mha_slice = data[i]
 				w.write(f, mha_slice)
 				f.close()
+			#if conf.ground_truth_path_identifier.lower() in filename.lower():
+			#	r = png.Reader(filename=file_path)
+			#	r_ar = r.read()
+			#	print(np.unique(data))
 	except Exception as e:
 		print("type error: " + str(e))
 
@@ -67,14 +80,13 @@ def run_tvflow(command):
 
 def load_2d_nrrd_and_save_to_png(in_file, out_file):
 	try:
-		if os.path.exists(out_file):
-			print("ret")
-			return
 		data, header = nrrd.read(in_file)
 		max_val = np.amax(data)
 		if float(max_val) != 0.0:
 			data = data / max_val
 			data = data * np.iinfo(np.uint8).max
+		else:
+			return
 		data = data.astype(np.uint8)
 		with open(out_file, 'wb') as f:
 			w = png.Writer(240, 240, greyscale=True, bitdepth=8)

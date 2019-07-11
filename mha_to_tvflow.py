@@ -1,3 +1,12 @@
+
+"""
+Lab Visualisation & Medical Image Analysis SS2019
+Institute of Computer Science II
+
+Author: Christian Breiderhoff
+created on June 2019
+"""
+
 import config
 import argparse
 import io_ops
@@ -5,11 +14,13 @@ import sys
 from _thread import start_new_thread, allocate_lock
 import multiprocessing
 
+
 lock = allocate_lock()
 thread_finished = None
 show_step_size = 20
 show_step_size_tvflow = 500
 num_threads = int(multiprocessing.cpu_count())
+
 
 def chunk_dict(dict_in, num_seq):
     avg = len(dict_in) / float(num_seq)
