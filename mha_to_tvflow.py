@@ -20,6 +20,8 @@ thread_finished = None
 show_step_size = 20
 show_step_size_tvflow = 500
 num_threads = int(multiprocessing.cpu_count())
+skip_empty_files = True
+skip_existing_files = False
 
 
 def chunk_dict(dict_in, num_seq):
@@ -58,7 +60,7 @@ def run_nrrd_to_png_conversion(file_dict, thread_num):
     length = len(file_dict)
     tmp = 1
     for key, value in file_dict.items():
-        io_ops.load_2d_nrrd_and_save_to_png(key, value)
+        io_ops.load_2d_nrrd_and_save_to_png(key, value, skip_emtpy=skip_empty_files)
         if tmp % show_step_size_tvflow == 0:
             print("Processed nrrd to png in tread {} on scan {} of {}".format(thread_num, tmp, length))
         tmp += 1
@@ -71,9 +73,9 @@ def run_mha_to_sclice_conversion(file_dict_part, thread_num):
     tmp = 1
     for key, value in file_dict_part.items():
         arr = io_ops.load_mha_volume_as_array(key)
-        io_ops.save_3darray_to_nrrd(arr, value)
+        io_ops.save_3darray_to_nrrd(arr, value, skip_empty=skip_empty_files, skip_if_exists=skip_existing_files)
         path_png = value.replace("/nrrd/", "/png/")
-        io_ops.save_3darray_to_pngs(arr, path_png)
+        io_ops.save_3darray_to_pngs(arr, path_png, skip_emtpy=skip_empty_files, skip_if_exists=skip_existing_files)
         if tmp % show_step_size == 0:
             print("Saved scan {} of {} as nrrd in tread {}".format(tmp, length, thread_num))
         tmp += 1
