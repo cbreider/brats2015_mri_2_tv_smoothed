@@ -10,12 +10,12 @@ created on June 2019
 import os
 
 
-eps = 0.001  # -e regularization eps (double); default: "0.001"
-itr = 30  # maximum  iterations (unsigned int); default: "10"
+eps = 0.00001  # -e regularization eps (double); default: "0.001"
+itr = 150  # maximum  iterations (unsigned int); default: "10"
 gradeps = 0.001  # gradient eps (double); default: "0.001"
 scl = "scale"  # scale output file (string); default: ""
 sclMinItr = 0  # iteration to start measurement (unsigned int);default: "0"
-tau = 1.0  # step size tau (double); default: "1.0"
+tau = 5.0  # step size tau (double); default: "1.0"
 
 
 tvflow_bin = "tvflow/tvflow"
@@ -191,6 +191,11 @@ def get_raw_to_tvflow_file_paths_dict():
                                                   ext_key=in_ext, ext_val="_tvflow",
                                                   remove_ext=False, gg=low_grade_gliomas_folder,
                                                   without_gt=True))
+    raw_to_tvflow_file_dict.update(get_paths_dict(base_path_key=raw_nrrd_test_dir,
+                                                  base_path_vlaue=tvflow_nrrd_dir,
+                                                  ext_key=in_ext, ext_val="_tvflow",
+                                                  remove_ext=False, gg=test_gg_path,
+                                                  without_gt=True))
 
     return raw_to_tvflow_file_dict
 
@@ -214,6 +219,11 @@ def get_tvflow_nrrd_to_png_paths_dict():
                                                 ext_key=".nrrd", ext_val=".png",
                                                 remove_ext=False, gg=low_grade_gliomas_folder,
                                                 without_gt=True))
+    nrrd_to_png_file_dict.update(get_paths_dict(base_path_key=tvflow_nrrd_dir,
+                                                  base_path_vlaue=tvflow_png_dir,
+                                                  ext_key=in_ext, ext_val="_tvflow",
+                                                  remove_ext=False, gg=test_gg_path,
+                                                  without_gt=True))
 
     return nrrd_to_png_file_dict
 
