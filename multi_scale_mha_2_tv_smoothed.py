@@ -4,7 +4,7 @@ import io_ops
 import sys
 from _thread import start_new_thread, allocate_lock
 import multiprocessing
-from mha_to_tvflow import chunk_dict
+from mha_2_tv_smoothed import chunk_dict
 
 lock = allocate_lock()
 thread_finished = None
