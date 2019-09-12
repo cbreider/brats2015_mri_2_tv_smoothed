@@ -1,5 +1,5 @@
 # brats_mha_to_tvflow
-Converts 3d mha files to nrrd and png and runs tvflow on them
+Converts the 3D MHA BRATS2015 daaset to 2D nrrd and png slices and runs toal variation smoothing on them
 
 
 Lab Visualisation & Medical Image Analysis SS2019
