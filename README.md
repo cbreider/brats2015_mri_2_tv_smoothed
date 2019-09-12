@@ -1,4 +1,4 @@
-# brats_mha_to_tvflow
+# brats2015_mha_2_tvflow
 Converts the 3D MHA BRATS2015 daaset to 2D nrrd and png slices and runs toal variation smoothing on them
 
 
